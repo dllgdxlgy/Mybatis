@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的Dao/Mapper接口,就相当于之前实现了接口-->
+<mapper namespace="com.lgy.dao.userDao">
+
+    <!--查询语句-->
+    <!--id对应着方法名字，因为之前需要写一个实现类进行实现userDao，这里没有实现，
+    只是写了一个配置文件，实现类要重写之前的方法，但是这里没有重写，只是用select标签代替了-->
+    <!--resultType要写他的全类名，这是返回类型-->
+    <select id="getUserList" resultType="com.lgy.pojo.User" >
+    select * from mybatis.user
+    </select>
+
+</mapper>
