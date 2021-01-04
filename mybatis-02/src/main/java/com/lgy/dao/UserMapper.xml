@@ -22,7 +22,7 @@
 
     <!-- parameterType 是上面传过来的参数类型，在sql语句中使用时使用 #{id} -->
     <!--根据用户id查询用户-->
-    <select id="getUserById"  parameterType="int" >
+    <select id="getUserById"  parameterType="int" resultType="com.lgy.pojo.User">
         select * from mybatis.user where id = #{id}
     </select>
 
