@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--核心配置文件-->
+<configuration>
+
+    <!--引入外部配置文件-->
+    <properties resource="db.properties">
+        <!--这里面还可以进行写其他属性-->
+    </properties>
+
+
+    <!--其别名,是为了在XXXMapper.xml文件中的 resultType 类型使用比较简单-->
+    <typeAliases>
+        <typeAlias type="com.lgy.pojo.User" alias="User"></typeAlias>
+    </typeAliases>
+
+
+    <!--可以配置多个环境-->
+    <!--这里默认代表的是开发环境-->
+    <environments default="development">
+
+        <environment id="development">
+            <!--事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--默认是有数据库连接池的-->
+            <dataSource type="POOLED">
+
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+
+            </dataSource>
+        </environment>
+
+
+        <environment id="test">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123"/>
+
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <!--每一个Mapper.xml都需要在mybatis里面进行注册-->
+
+    <mappers>
+        <mapper resource="com/lgy/dao/UserMapper.xml"/>
+    </mappers>
+
+
+
+
+</configuration>

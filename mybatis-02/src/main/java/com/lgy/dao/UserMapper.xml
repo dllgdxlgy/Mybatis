@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace绑定一个对应的Dao/Mapper接口,就相当于之前实现了接口-->
+<mapper namespace="com.lgy.dao.userDao">
+
+    <!--查询语句-->
+    <!--id对应着方法名字，因为之前需要写一个实现类进行实现userDao，这里没有实现，
+    只是写了一个配置文件，实现类要重写之前的方法，但是这里没有重写，只是用select标签代替了-->
+    <!--id 就是对应的namespace里面的方法名，resultType要写他的全类名，这是返回类型，也就是
+    sql语句执行后的返回值-->
+
+
+    <!--查询所以用户-->
+    <select id="getUserList" resultType="com.lgy.pojo.User">
+    select * from mybatis.user
+    </select>
+
+
+
+    <!-- parameterType 是上面传过来的参数类型，在sql语句中使用时使用 #{id} -->
+    <!--根据用户id查询用户-->
+    <select id="getUserById"  parameterType="int" >
+        select * from mybatis.user where id = #{id}
+    </select>
+
+    <!--user对象中的属性可以直接取出来,直接在sql语句中使用-->
+    <insert id="addUser"  parameterType="com.lgy.pojo.User" >
+        INSERT into mybatis.user(id,name,pwd) values (#{id},#{name},#{pwd})
+    </insert>
+
+    <update id="updateUser" parameterType="com.lgy.pojo.User" >
+        update mybatis.user set name =#{name},pwd = #{pwd} where id = #{id};
+    </update>
+
+    <delete id="deleteUser" >
+        delete from mybatis.user where  id = #{id};
+    </delete>
+
+
+</mapper>
