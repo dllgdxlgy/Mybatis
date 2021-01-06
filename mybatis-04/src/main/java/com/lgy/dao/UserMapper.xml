@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lgy.dao.userDao">
+
+
+    <!--根据用户id查询用户-->
+
+    <!--resultMap id代表名字，type代表要映射的类型 -->
+    <resultMap id="usermap" type="User">
+        <!--column代表数据库中字段，property代表实体类中的属性-->
+
+        <!-- 一样的可以不进行映射-->
+        <!--<result column="id" property="id"></result>-->
+        <!--<result column="name" property="name"></result>-->
+
+        <result column="pwd" property="password"></result>
+    </resultMap>
+
+
+
+    <!--resultType="com.lgy.pojo.User" 这种属性就不需要了，只使用resultMap-->
+    <select id="getUserById"  parameterType="int"  resultMap="usermap">
+        select * from mybatis.user where id = #{id};
+    </select>
+
+
+    <!--实现分页查询-->
+    <select id="getUserByLimit" parameterType="map" resultMap="usermap">
+        select * from mybatis.user limit #{startIndex},#{pageSize}
+    </select>
+
+</mapper>
