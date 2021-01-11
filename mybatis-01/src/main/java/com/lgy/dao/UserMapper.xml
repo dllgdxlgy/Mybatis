@@ -13,7 +13,8 @@
     sql语句执行后的返回值-->
 
 
-    <!--查询所以用户-->
+    <!--查询所有用户-->
+    <!--com.lgy.dao.userDao.getUserList-->
     <select id="getUserList" resultType="com.lgy.pojo.User">
     select * from mybatis.user
     </select>

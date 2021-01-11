@@ -14,6 +14,7 @@
             <dataSource type="POOLED">
 
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <!--如果写在这里面如果带参数需要使用&amp-->
                 <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123"/>
