@@ -22,10 +22,40 @@
 
 
     <!--resultType="com.lgy.pojo.User" 这种属性就不需要了，只使用resultMap-->
+
+    <!--关于resultType 与 resultMap-->
+    <!--resultType是直接表示返回类型的，而resultMap则是对外部ResultMap的引用，但是resultType跟resultMap不能同时存在。-->
+    <!--博客链接：https://blog.csdn.net/canot/article/details/50988550 -->
     <select id="getUserById"  parameterType="int"  resultMap="usermap">
         select * from mybatis.user where id = #{id};
     </select>
 
 
+<!--
+    <resultMap type="Blog" id="BlogResult">
+        <id column="id" property="id"/>
+        <collection property="comments" select="selectCommentsByBlog" column="id" ofType="Comment">
+        </collection>
+    </resultMap>
+
+    <resultMap type="Comment" id="CommentResult">
+        <association property="blog" javaType="Blog" column="blog" select="selectBlog"/>
+    </resultMap>
+
+    <select id="selectBlog" parameterType="int" resultMap="BlogResult">
+select * from t_blog where id = #{id}
+  </select>
+
+    <select id="selectCommentsByBlog" parameterType="int" resultMap="CommentResult">
+  select * from t_Comment where blog = #{blogId}
+  </select>
+
+  -->
+    <!--解释： 上述请求的入口是id为selectBlog的select映射，返回结果为id为BlogResult的resultMap，
+    id为BlogResult的类型为Blog，其中指定了id的属性和字段，指定id将对MyBatis内部的构造作用非常大。
+    其中关联了一个comments对象，因为一个Blog可以有很多Comment，该comments为一个集合，所以用集合
+    collection进行映射，其中的select还是表示进行哪个子查询来查询对应的comments，column表示把上述
+    查出来的哪个字段值当作参数传给子查询，ofType也是表示返回类型，这里的返回类型是集合内部的类型，
+    之所以用ofType而不是用type是MyBatis内部为了和关联association进行区别。-->
 
 </mapper>

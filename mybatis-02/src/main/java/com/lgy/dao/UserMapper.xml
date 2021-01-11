@@ -21,13 +21,14 @@
 
 
     <!-- parameterType 是上面传过来的参数类型，在sql语句中使用时使用 #{id} -->
-    <!--根据用户id查询用户-->
-    <select id="getUserById"  parameterType="int" resultType="com.lgy.pojo.User">
+    <!--根据用户id查询用户，这里resultType="User" 使用了假名-->
+    <select id="getUserById"  parameterType="int" resultType="User">
         select * from mybatis.user where id = #{id}
     </select>
 
     <!--user对象中的属性可以直接取出来,直接在sql语句中使用-->
-    <insert id="addUser"  parameterType="com.lgy.pojo.User" >
+    <!--parameterType="com.lgy.pojo.User"能不能换成parameterType="User" ？？？测试3测试了可以插入数据-->
+    <insert id="addUser"  parameterType="User" >
         INSERT into mybatis.user(id,name,pwd) values (#{id},#{name},#{pwd})
     </insert>
 

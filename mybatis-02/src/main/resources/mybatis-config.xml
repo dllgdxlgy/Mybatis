@@ -12,7 +12,7 @@
     </properties>
 
 
-    <!--其别名,是为了在XXXMapper.xml文件中的 resultType 类型使用比较简单-->
+    <!--起别名,是为了在XXXMapper.xml文件中的 resultType 类型使用比较简单-->
     <typeAliases>
         <typeAlias type="com.lgy.pojo.User" alias="User"></typeAlias>
     </typeAliases>
