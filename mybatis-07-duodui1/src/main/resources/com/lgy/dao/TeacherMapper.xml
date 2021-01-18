@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--核心配置文件-->
+<mapper namespace="com.lgy.dao.TeacherDao">
+
+
+    <select id="getTeachers" resultType="com.lgy.pojo.Teacher">
+        select * from teacher;
+    </select>
+
+
+    <!--按照结果嵌套查询-->
+    <select id="getTeacher" resultMap="st">
+        select s.id sid, s.name sname, t.name tname,t.id tid from
+        student s, teacher t where s.tid=t.id and t.id = #{tid}
+    </select>
+
+    <resultMap id="st" type="com.lgy.pojo.Teacher">
+        <result property="id" column="tid"></result>
+        <result property="name" column="tname"></result>
+        <!--集合用collection-->
+        <!--javaType 是指定属性的类型，所以这里不行写com.lgy.pojo.Student,因为是集合，这里使用ofType-->
+        <collection property="students" ofType="com.lgy.pojo.Student">
+            <result property="id" column="sid"></result>
+            <result property="name" column="sname"></result>
+            <result property="tid" column="tid"></result>
+        </collection>
+
+    </resultMap>
+
+
+
+    <!--==================================================-->
+
+    <!--子查询-->
+    <select id="getTeacher2" resultMap="ts">
+        select * from teacher where id = #{tid}
+
+    </select>
+
+    <resultMap id="ts" type="com.lgy.pojo.Teacher">
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <collection property="students"  javaType="ArrayList" ofType="com.lgy.pojo.Student" select="getStudentByTeacherId" column="id"></collection>
+    </resultMap>
+
+    <select id="getStudentByTeacherId" resultType="com.lgy.pojo.Student">
+        select  *from student where tid = #{tid}
+    </select>
+
+</mapper>
