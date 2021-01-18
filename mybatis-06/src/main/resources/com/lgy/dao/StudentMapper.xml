@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <!--核心配置文件-->
+<mapper namespace="com.lgy.dao.StudentDao">
+
+    <!--<select id="getStudent" resultType="com.lgy.pojo.Student">-->
+          <!--select * from student-->
+    <!--</select>-->
+
+
+
+<!--嵌套查询处理-->
+
+    <!--=====================================================================================-->
+    <select id="getStudent" resultMap="StudentTeacher">
+     select * from student
+    </select>
+
+    <resultMap id="StudentTeacher" type="com.lgy.pojo.Student">
+        <!--property实体 column 对应数据库-->
+        <result property="id" column="id"></result>
+        <result property="name" column="name"></result>
+        <!--复杂的属性 进行单独处理-->
+        <!--对象的时候使用-->
+        <!--<association property=""></association>-->
+        <!--集合的时候使用-->
+        <!--<collection property=""></collection>-->
+
+        <!--javaType 对应的 Teacher 类-->
+        <association property="teacher" column="tid" javaType="com.lgy.pojo.Teacher" select="getTeacher"></association>
+
+    </resultMap>
+
+    <select id="getTeacher" resultType="com.lgy.pojo.Teacher">
+        select * from teacher where id = #{id};
+
+    </select>
+    <!--=====================================================================================-->
+
+
+
+    <!--按照结果查询处理-->
+    <select id="getStudent2" resultMap="StudentTeacher2">
+        select s.id sid,s.name sname ,t.name tname from student s, teacher t  where s.tid = t.id
+
+    </select>
+    <resultMap id="StudentTeacher2" type="com.lgy.pojo.Student">
+
+        <result property="id" column="sid"></result>
+        <result property="name" column="sname"></result>
+        <association property="teacher" javaType="com.lgy.pojo.Teacher">
+            <result property="name" column="tname"></result>
+        </association>
+    </resultMap>
+
+</mapper>
